@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(VaccineCenter::class)->constrained()->cascadeOnDelete();
             $table->date('scheduled_date');
+            $table->string('status')->default('not_scheduled');
             $table->timestamps();
         });
     }

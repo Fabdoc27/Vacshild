@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('nid')->unique();
             $table->string('phone')->unique();
-            $table->string('status')->default('not_scheduled');
             $table->string('role')->default('patient');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
