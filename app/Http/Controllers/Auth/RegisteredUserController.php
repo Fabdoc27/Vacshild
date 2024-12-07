@@ -50,6 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended(route('dashboard'))->with('message', 'Resister Successfully');
+        return redirect()->intended(route('vaccine.create'))->with('message', 'Resister Successfully');
     }
 }

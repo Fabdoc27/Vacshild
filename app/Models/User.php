@@ -18,7 +18,6 @@ class User extends Authenticatable
         'email',
         'nid',
         'phone',
-        'role',
         'password',
     ];
 
@@ -38,7 +37,7 @@ class User extends Authenticatable
 
     public function vaccineCenters()
     {
-        return $this->belongsToMany(VaccineCenter::class, 'user_vaccine_center')
+        return $this->belongsToMany(VaccineCenter::class)
             ->using(VaccineRegistration::class)
             ->withPivot('scheduled_date')
             ->withTimestamps();

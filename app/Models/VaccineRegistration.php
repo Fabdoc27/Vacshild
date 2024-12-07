@@ -12,9 +12,4 @@ class VaccineRegistration extends Pivot
     protected $casts = [
         'status' => Status::class,
     ];
-
-    public function getStatusAttribute($value): Status
-    {
-        return Status::from($value);
-    }
 }

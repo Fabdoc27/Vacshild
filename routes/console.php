@@ -1,8 +1,12 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use App\Jobs\MarkUsersVaccinated;
+use App\Jobs\ScheduleVaccination;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+Schedule::job(new ScheduleVaccination)
+    ->dailyAt('21:00')
+    ->days([1, 2, 3, 4, 5]);
+
+Schedule::job(new MarkUsersVaccinated)
+    ->dailyAt('00:00')
+    ->days([2, 3, 4, 5, 6]);

@@ -11,8 +11,8 @@ class VaccineCenter extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_vaccine_center')
-            ->withPivot('scheduled_date', 'status')
+        return $this->belongsToMany(User::class)
+            ->withPivot('status', 'scheduled_date')
             ->withTimestamps();
     }
 }

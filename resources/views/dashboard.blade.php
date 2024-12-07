@@ -26,7 +26,13 @@
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $record->name }}
                                         </th>
-                                        <td class="px-6 py-4">{{ $record->pivot->scheduled_date }}</td>
+                                        <td class="px-6 py-4">
+                                            @if (is_null($record->pivot->scheduled_date))
+                                                <span class="italic text-gray-500">To be scheduled</span>
+                                            @else
+                                                {{ $record->pivot->scheduled_date }}
+                                            @endif
+                                        </td>
                                         <td class="px-6 py-4">
                                             <span
                                                 class="px-2 py-1 rounded-full text-sm font-medium {{ match ($record->pivot->status->value) {

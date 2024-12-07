@@ -17,26 +17,12 @@
                         required>
                         <option value="" selected>Choose a center</option>
                         @foreach ($centers as $center)
-                            <option value="{{ $center->id }}" @if ($center->daily_limit === 0) disabled @endif>
-                                {{ $center->name }} -
-                                @if ($center->daily_limit > 0)
-                                    {{ $center->daily_limit }} {{ Str::plural('slot', $center->daily_limit) }} left
-                                @else
-                                    Full
-                                @endif
+                            <option value="{{ $center->id }}">
+                                {{ $center->name }}
                             </option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('vaccine_center')" class="mt-2" />
-                </div>
-
-                <div class="max-w-md mx-auto mt-3">
-                    <label for="scheduled_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Date</label>
-                    <input type="date" name="scheduled_date" id="scheduled_date" placeholder="Select
-                        date"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required>
-                    <x-input-error :messages="$errors->get('scheduled_date')" class="mt-2" />
                 </div>
 
                 <x-primary-button>{{ __('Submit') }}</x-primary-button>
