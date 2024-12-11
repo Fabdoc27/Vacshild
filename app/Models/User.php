@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Role;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -35,11 +36,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role === Role::ADMIN;
+    }
+
     public function vaccineCenters()
     {
         return $this->belongsToMany(VaccineCenter::class)
             ->using(VaccineRegistration::class)
-            ->withPivot('scheduled_date')
+            ->withPivot('scheduled_date', 'status')
             ->withTimestamps();
     }
 }

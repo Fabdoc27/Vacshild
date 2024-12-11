@@ -21,13 +21,15 @@ class MarkUsersVaccinated implements ShouldQueue
     {
         $date = Carbon::yesterday()->toDateString();
 
-        User::whereHas('vaccineCenters', function ($query) use ($date) {
+        User::with(['vaccineCenters' => function ($query) use ($date) {
             $query->wherePivot('status', Status::SCHEDULED)
                 ->wherePivot('scheduled_date', $date);
-        })->get()->each(function ($user) {
-            $user->pivot->update([
-                'status' => Status::VACCINATED,
-            ]);
+        }])->get()->each(function (User $user) {
+            $user->vaccineCenters->each(function ($center) use ($user) {
+                $user->vaccineCenters()->updateExistingPivot($center->id, [
+                    'status' => Status::VACCINATED,
+                ]);
+            });
         });
     }
 }
