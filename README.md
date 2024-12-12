@@ -19,7 +19,7 @@ Follow these instructions to set up the project.
 1. **Clone the repository:**
 
     ```shell
-        git clone "git@github.com:ashrafulbinharun/Vacshild.git"
+    git clone "git@github.com:ashrafulbinharun/Vacshild.git"
     ```
 
 2. **Navigate to the project directory:**
