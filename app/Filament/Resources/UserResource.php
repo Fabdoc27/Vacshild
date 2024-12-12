@@ -50,9 +50,10 @@ class UserResource extends Resource
 
                         TextEntry::make('vaccineCenters.schedule_date')
                             ->label('Schedule Date')
+                            ->default('To be scheduled')
                             ->getStateUsing(function ($record) {
                                 return $record->vaccineCenters->map(function ($center) {
-                                    return $center->pivot->scheduled_date;
+                                    return $center->pivot->scheduled_date ?? 'To be scheduled';
                                 });
                             }),
 
@@ -64,7 +65,7 @@ class UserResource extends Resource
                                 });
                             })
                             ->badge()
-                            ->color(fn (string $state): string => match ($state) {
+                            ->color(fn(string $state): string => match ($state) {
                                 'Not Scheduled' => 'danger',
                                 'Scheduled' => 'warning',
                                 'Vaccinated' => 'success',
@@ -96,10 +97,9 @@ class UserResource extends Resource
                     ->label('Schedule Date')
                     ->getStateUsing(function ($record) {
                         return $record->vaccineCenters->map(function ($center) {
-                            return $center->pivot->scheduled_date;
+                            return $center->pivot->scheduled_date ?? 'To be scheduled';
                         });
                     })
-                    ->date()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
@@ -112,7 +112,7 @@ class UserResource extends Resource
                         });
                     })
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'Not Scheduled' => 'danger',
                         'Scheduled' => 'warning',
                         'Vaccinated' => 'success',
