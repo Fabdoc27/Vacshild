@@ -3,10 +3,10 @@
 namespace App\Jobs;
 
 use App\Enums\Status;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\DB;
 
 class MarkUsersVaccinated implements ShouldQueue
 {
@@ -21,15 +21,9 @@ class MarkUsersVaccinated implements ShouldQueue
     {
         $date = Carbon::yesterday()->toDateString();
 
-        User::with(['vaccineCenters' => function ($query) use ($date) {
-            $query->wherePivot('status', Status::SCHEDULED)
-                ->wherePivot('scheduled_date', $date);
-        }])->get()->each(function (User $user) {
-            $user->vaccineCenters->each(function ($center) use ($user) {
-                $user->vaccineCenters()->updateExistingPivot($center->id, [
-                    'status' => Status::VACCINATED,
-                ]);
-            });
-        });
+        DB::table('user_vaccine_center')
+            ->where('status', Status::SCHEDULED)
+            ->where('scheduled_date', $date)
+            ->update(['status' => Status::VACCINATED]);
     }
 }

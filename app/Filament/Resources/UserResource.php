@@ -65,7 +65,7 @@ class UserResource extends Resource
                                 });
                             })
                             ->badge()
-                            ->color(fn(string $state): string => match ($state) {
+                            ->color(fn (string $state): string => match ($state) {
                                 'Not Scheduled' => 'danger',
                                 'Scheduled' => 'warning',
                                 'Vaccinated' => 'success',
@@ -112,7 +112,7 @@ class UserResource extends Resource
                         });
                     })
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         'Not Scheduled' => 'danger',
                         'Scheduled' => 'warning',
                         'Vaccinated' => 'success',

@@ -1,9 +1,10 @@
 <?php
 
 use App\Jobs\MarkUsersVaccinated;
-use App\Jobs\ScheduleVaccination;
+use App\Jobs\ScheduleCenters;
+use Illuminate\Support\Facades\Schedule;
 
-Schedule::job(new ScheduleVaccination)
+Schedule::job(new ScheduleCenters)
     ->dailyAt('21:00')
     ->days([1, 2, 3, 4, 5]);
 
